@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background font-body text-foreground antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent-primary/30 text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-accent-primary;
+  }
+}
