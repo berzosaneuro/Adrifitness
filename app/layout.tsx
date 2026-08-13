@@ -21,10 +21,33 @@ const inter = Inter({
   display: "swap",
 });
 
+// TODO: fijar NEXT_PUBLIC_SITE_URL al dominio definitivo en Vercel en cuanto
+// exista — mientras tanto cae a la URL de deploy de Vercel o a localhost.
+// Sin metadataBase, next/og generaría URLs relativas para las imágenes
+// Open Graph/Twitter y los previews de WhatsApp/Instagram no las cargarían.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+const title = "Adrián Method — Coaching de fitness online 1:1";
+const description =
+  "Coaching de fitness online 1:1: transforma tu cuerpo en 12 semanas con un plan de entrenamiento y nutrición personalizado y seguimiento real, sin dietas genéricas.";
+
 export const metadata: Metadata = {
-  title: "Adrián Method — Coaching de fitness online 1:1",
-  description:
-    "Coaching de fitness online 1:1: transforma tu cuerpo en 12 semanas con un plan de entrenamiento y nutrición personalizado y seguimiento real, sin dietas genéricas.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export const viewport: Viewport = {

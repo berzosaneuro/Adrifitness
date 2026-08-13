@@ -8,8 +8,12 @@ const base =
 const variants: Record<Variant, string> = {
   primary:
     "bg-accent-primary text-background hover:bg-accent-primary-dim shadow-glow-primary-sm hover:shadow-glow-primary active:scale-[0.98]",
+  // accent-secondary a secas con texto blanco da 4.23:1 (falla AA 4.5:1 en
+  // texto normal) — secondary-dim sube a 5.18:1. El fondo no cambia en
+  // hover para no volver a bajar el contraste al pasar el ratón; el
+  // feedback de hover lo da el glow + el scale de :active.
   secondary:
-    "bg-accent-secondary text-white hover:bg-accent-secondary-dim shadow-glow-secondary active:scale-[0.98]",
+    "bg-accent-secondary-dim text-white shadow-glow-secondary active:scale-[0.98]",
   outline:
     "border border-border-strong bg-white/5 text-foreground backdrop-blur-sm hover:bg-white/10 active:scale-[0.98]",
 };
