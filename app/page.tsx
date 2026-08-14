@@ -1,39 +1,46 @@
 import { CTASection } from "@/components/CTASection";
 import { FAQ } from "@/components/FAQ";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
-import { ResultsBlock } from "@/components/ResultsBlock";
-import { resultsSample } from "@/data/results.sample";
+import { WhoItsFor } from "@/components/WhoItsFor";
 
 const LEAD_FORM_HREF = "#lead-form";
 
 export default function HomePage() {
   return (
-    <main>
-      <Hero
-        leadFormHref={LEAD_FORM_HREF}
-        // TODO: pasar a número real de WhatsApp de Adrián para activar el CTA directo.
-        whatsappNumber={undefined}
-        // TODO: sustituir por datos reales en cuanto existan (o leerlos de Supabase).
-        socialProof={{ transformationsCount: 0 }}
-      />
+    <>
+      <Header />
+      <main id="top">
+        <Hero
+          leadFormHref={LEAD_FORM_HREF}
+          // TODO: pasar a número real de WhatsApp de Adrián para activar el CTA directo.
+          whatsappNumber={undefined}
+          // TODO: sustituir por datos reales en cuanto existan (o leerlos de Supabase).
+          socialProof={{ transformationsCount: 0 }}
+        />
 
-      <ResultsBlock results={resultsSample} leadFormHref={LEAD_FORM_HREF} />
+        {/*
+          ResultsBlock (fotos antes/después) queda fuera por petición
+          explícita mientras no haya casos reales — el componente sigue
+          intacto en ResultsBlock.tsx/ResultCard.tsx, listo para volver a
+          montarse pasando `results` en cuanto existan.
 
-      <HowItWorks />
+          About y Testimonials: mismo motivo — sin bio/foto real de Adrián
+          ni testimonios de clientes, mostrar contenido inventado es peor
+          que omitirlo. Ver About.tsx y Testimonials.tsx.
+        */}
 
-      {/*
-        About y Testimonials existen como componentes funcionales pero no se
-        montan aún: no tenemos bio/foto/credenciales reales de Adrián ni
-        testimonios de clientes, y mostrar contenido inventado en cualquiera
-        de las dos secciones es peor para la conversión que omitirlas.
-        En cuanto llegue ese contenido, se añaden aquí pasando los props
-        correspondientes — ver About.tsx y Testimonials.tsx.
-      */}
+        <HowItWorks />
 
-      <FAQ />
+        <WhoItsFor />
 
-      <CTASection />
-    </main>
+        <FAQ />
+
+        <CTASection />
+      </main>
+      <Footer />
+    </>
   );
 }

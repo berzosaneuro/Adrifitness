@@ -23,17 +23,34 @@ export function Hero({ socialProof, leadFormHref, whatsappNumber }: HeroProps) {
   const hasRealSocialProof = socialProof.transformationsCount > 0;
 
   return (
-    <section className="relative overflow-hidden bg-grid-fade px-4 pb-16 pt-28 sm:pt-32 md:pb-24">
+    <section className="relative overflow-hidden px-4 pb-20 pt-32 sm:pt-40 md:pb-28">
+      {/* Fondo en capas: cuadrícula técnica fina + dos glows de color — sin
+          imágenes externas, todo CSS/gradientes, coste de perf despreciable. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(245,245,247,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(245,245,247,0.05)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-accent-secondary/20 blur-[120px]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 right-1/2 -z-10 h-72 w-72 translate-x-1/2 translate-y-1/2 rounded-full bg-accent-primary/10 blur-[100px]"
+      />
+
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         <Badge tone="secondary" className="mb-6 animate-fade-up">
           Coaching de fitness online 1:1
         </Badge>
 
         {/* H1 declara nicho explícito: a quién ayuda + qué resultado. */}
-        <h1 className="animate-fade-up font-display text-4xl leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl">
+        <h1 className="animate-fade-up font-display text-4xl leading-[1.1] tracking-tight text-foreground sm:text-6xl md:text-7xl">
           Transforma tu cuerpo en{" "}
-          <span className="text-accent-primary">12 semanas</span> con un
-          método 1:1, sin dietas ni rutinas genéricas
+          <span className="text-accent-primary drop-shadow-[0_0_24px_rgba(57,255,20,0.35)]">
+            12 semanas
+          </span>{" "}
+          con un método 1:1, sin dietas ni rutinas genéricas
         </h1>
 
         <p className="mt-6 max-w-2xl animate-fade-up text-balance font-body text-lg text-foreground-muted sm:text-xl">

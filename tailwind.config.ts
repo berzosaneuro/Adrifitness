@@ -37,10 +37,6 @@ const config: Config = {
         "glow-secondary": "0 0 24px rgba(139,92,246,0.4), 0 0 48px rgba(139,92,246,0.15)",
         card: "0 8px 32px rgba(0,0,0,0.4)",
       },
-      backgroundImage: {
-        "grid-fade":
-          "radial-gradient(circle at 50% 0%, rgba(139,92,246,0.15), transparent 60%)",
-      },
       animation: {
         "fade-up": "fade-up 0.6s ease-out forwards",
       },

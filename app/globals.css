@@ -3,8 +3,36 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-background font-body text-foreground antialiased;
+    position: relative;
+  }
+
+  /*
+   * Grano sutil sobre el fondo negro: rompe el plano perfectamente liso
+   * que hace que un dark UI se vea "genérico" y aporta la textura fina que
+   * asociamos a interfaces premium. SVG inline con feTurbulence, sin
+   * imagen externa que descargar — coste de performance despreciable.
+   */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   ::selection {
@@ -13,5 +41,13 @@
 
   :focus-visible {
     @apply outline-accent-primary;
+  }
+
+  /* Compensa la altura del header sticky al saltar a una sección por ancla. */
+  #metodo,
+  #para-ti,
+  #faq,
+  #lead-form {
+    scroll-margin-top: 5rem;
   }
 }

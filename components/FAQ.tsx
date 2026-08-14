@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/Card";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface FAQItem {
   question: string;
@@ -32,18 +33,22 @@ const faqs: FAQItem[] = [
 
 export function FAQ() {
   return (
-    <section className="px-4 py-16 md:py-24" id="faq">
+    <section className="px-4 py-20 md:py-32" id="faq">
       <div className="mx-auto max-w-3xl">
-        <h2 className="text-center font-display text-3xl text-foreground sm:text-4xl">
-          Preguntas frecuentes
-        </h2>
+        <Reveal>
+          <h2 className="text-center font-display text-3xl text-foreground sm:text-4xl">
+            Preguntas frecuentes
+          </h2>
+        </Reveal>
 
         <div className="mt-10 flex flex-col gap-4">
-          {faqs.map((faq) => (
-            <Card key={faq.question} className="p-6">
-              <h3 className="font-display text-base text-foreground">{faq.question}</h3>
-              <p className="mt-2 font-body text-sm text-foreground-muted">{faq.answer}</p>
-            </Card>
+          {faqs.map((faq, index) => (
+            <Reveal key={faq.question} delayMs={index * 60}>
+              <Card className="p-6">
+                <h3 className="font-display text-base text-foreground">{faq.question}</h3>
+                <p className="mt-2 font-body text-sm text-foreground-muted">{faq.answer}</p>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </div>
