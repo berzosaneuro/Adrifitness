@@ -9,9 +9,7 @@ import { WhoItsFor } from "@/components/WhoItsFor";
 
 const LEAD_FORM_HREF = "#lead-form";
 
-// TODO: sustituir por la URL real en cuanto Adrián mande las fotos (ver
-// PhotoFrame — hasta entonces Hero/About renderizan su placeholder honesto).
-const ADRIAN_PHOTO_URL: string | undefined = undefined;
+const ADRIAN_PHOTO_URL: string | undefined = "/images/adrian-portrait.jpg";
 
 export default function HomePage() {
   return (
