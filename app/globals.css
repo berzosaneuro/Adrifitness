@@ -44,6 +44,7 @@
   }
 
   /* Compensa la altura del header sticky al saltar a una sección por ancla. */
+  #sobre-mi,
   #metodo,
   #para-ti,
   #faq,

@@ -1,3 +1,4 @@
+import { About } from "@/components/About";
 import { CTASection } from "@/components/CTASection";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
@@ -7,6 +8,10 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { WhoItsFor } from "@/components/WhoItsFor";
 
 const LEAD_FORM_HREF = "#lead-form";
+
+// TODO: sustituir por la URL real en cuanto Adrián mande las fotos (ver
+// PhotoFrame — hasta entonces Hero/About renderizan su placeholder honesto).
+const ADRIAN_PHOTO_URL: string | undefined = undefined;
 
 export default function HomePage() {
   return (
@@ -21,6 +26,18 @@ export default function HomePage() {
           socialProof={{ transformationsCount: 0 }}
           // TODO: confirmar con Adrián el compromiso de respuesta real (¿24h? ¿48h?) antes de publicar.
           responseTimePromise="Proceso de selección · Respuesta en 24-48h"
+          photoUrl={ADRIAN_PHOTO_URL}
+        />
+
+        <About
+          name="Adrián"
+          tagline="Fundador de Adrián Method"
+          // Copy centrado en la filosofía del método, no en biografía/credenciales
+          // que no podemos verificar todavía — ver comentario en About.tsx.
+          bio="Cada plan se construye desde cero para tu cuerpo, tu rutina y tu objetivo — nada de plantillas descargadas de internet. Si me escribes, lo lees y lo respondo yo, no un equipo de soporte genérico."
+          photoUrl={ADRIAN_PHOTO_URL}
+          // TODO: añadir credenciales reales y verificables cuando Adrián las confirme.
+          credentials={undefined}
         />
 
         {/*
@@ -29,9 +46,8 @@ export default function HomePage() {
           intacto en ResultsBlock.tsx/ResultCard.tsx, listo para volver a
           montarse pasando `results` en cuanto existan.
 
-          About y Testimonials: mismo motivo — sin bio/foto real de Adrián
-          ni testimonios de clientes, mostrar contenido inventado es peor
-          que omitirlo. Ver About.tsx y Testimonials.tsx.
+          Testimonials: mismo motivo — sin testimonios de clientes reales,
+          mostrar contenido inventado es peor que omitirlo. Ver Testimonials.tsx.
         */}
 
         <HowItWorks />

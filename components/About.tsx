@@ -1,50 +1,51 @@
-import Image from "next/image";
-import { Card } from "@/components/ui/Card";
+import { PhotoFrame } from "@/components/ui/PhotoFrame";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface AboutProps {
   name: string;
   tagline: string;
   bio: string;
   photoUrl?: string;
+  /** Credenciales verificables (certificaciones, títulos). Omitir si no hay ninguna confirmada. */
   credentials?: string[];
 }
 
 /**
- * Componente listo para recibir la bio real de Adrián, pero NO se monta
- * todavía en app/page.tsx: no tenemos foto, biografía ni credenciales
- * reales, y publicar credenciales inventadas es más grave que no tener la
- * sección (falsa acreditación profesional). Ver lista de pendientes al
- * final de la respuesta — en cuanto llegue el copy real, se pasa como
- * props aquí sin tocar el componente.
+ * name/tagline/bio de abajo (en page.tsx) son copy genérico y defendible
+ * sobre la filosofía del método — no inventan cifras, años de experiencia
+ * ni credenciales. `credentials` se deja vacío a propósito: publicar
+ * certificaciones inventadas es peor que no mostrar ninguna. En cuanto
+ * Adrián confirme las suyas, se añaden aquí sin tocar el componente.
+ * `photoUrl` usa el mismo PhotoFrame que Hero — placeholder honesto hasta
+ * que llegue la foto real.
  */
 export function About({ name, tagline, bio, photoUrl, credentials }: AboutProps) {
   return (
-    <section className="px-4 py-16 md:py-24" id="sobre-mi">
-      <div className="mx-auto max-w-4xl">
-        <Card className="grid grid-cols-1 gap-8 p-8 sm:grid-cols-[auto_1fr] sm:items-center">
-          {photoUrl ? (
-            <div className="relative mx-auto h-32 w-32 overflow-hidden rounded-full border-2 border-accent-primary/50 sm:mx-0">
-              <Image src={photoUrl} alt={`Foto de ${name}`} fill sizes="128px" className="object-cover" />
-            </div>
+    <section className="px-4 py-20 md:py-32" id="sobre-mi">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <Reveal>
+          <PhotoFrame src={photoUrl} alt={`Foto de ${name}`} className="mx-auto max-w-sm lg:max-w-none" />
+        </Reveal>
+
+        <Reveal delayMs={80}>
+          <h2 className="font-display text-3xl text-foreground sm:text-4xl">{name}</h2>
+          <p className="mt-2 font-body text-sm uppercase tracking-widest text-accent-primary">
+            {tagline}
+          </p>
+          <p className="mt-5 font-body text-lg text-foreground-muted">{bio}</p>
+          {credentials && credentials.length > 0 ? (
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {credentials.map((credential) => (
+                <li
+                  key={credential}
+                  className="rounded-full border border-border-strong bg-white/5 px-3 py-1 text-xs text-foreground-muted"
+                >
+                  {credential}
+                </li>
+              ))}
+            </ul>
           ) : null}
-          <div>
-            <h2 className="font-display text-2xl text-foreground">{name}</h2>
-            <p className="mt-1 font-body text-sm text-accent-primary">{tagline}</p>
-            <p className="mt-4 font-body text-foreground-muted">{bio}</p>
-            {credentials && credentials.length > 0 ? (
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {credentials.map((credential) => (
-                  <li
-                    key={credential}
-                    className="rounded-full border border-border-strong bg-white/5 px-3 py-1 text-xs text-foreground-muted"
-                  >
-                    {credential}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        </Card>
+        </Reveal>
       </div>
     </section>
   );

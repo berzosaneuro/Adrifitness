@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 
 const NAV_LINKS = [
+  { href: "#sobre-mi", label: "Sobre mí" },
   { href: "#metodo", label: "Método" },
   { href: "#para-ti", label: "¿Es para ti?" },
   { href: "#faq", label: "FAQ" },
