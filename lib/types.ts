@@ -32,6 +32,8 @@ export interface Testimonial {
   name: string;
   quote: string;
   verified: boolean;
+  /** Etiqueta corta de una categoría, ej. "NUTRICIÓN" o "FUERZA". Opcional. */
+  tag?: string;
   /** Opcional: testimonio en vídeo. No usado todavía, pero soportado sin rehacer el componente. */
   videoUrl?: string;
 }

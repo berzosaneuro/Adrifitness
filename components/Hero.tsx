@@ -17,9 +17,20 @@ interface HeroProps {
   leadFormHref: string;
   /** Número de WhatsApp en formato internacional sin "+", ej. "34600000000". */
   whatsappNumber?: string;
+  /**
+   * Compromiso de respuesta tras enviar el formulario, ej. "Respuesta en 24-48h".
+   * Configurable porque es una promesa operativa real que Adrián debe poder
+   * cumplir — no un dato inventado. undefined = no se muestra la línea.
+   */
+  responseTimePromise?: string;
 }
 
-export function Hero({ socialProof, leadFormHref, whatsappNumber }: HeroProps) {
+export function Hero({
+  socialProof,
+  leadFormHref,
+  whatsappNumber,
+  responseTimePromise,
+}: HeroProps) {
   const hasRealSocialProof = socialProof.transformationsCount > 0;
 
   return (
@@ -74,6 +85,12 @@ export function Hero({ socialProof, leadFormHref, whatsappNumber }: HeroProps) {
             </Button>
           ) : null}
         </div>
+
+        {responseTimePromise ? (
+          <p className="mt-4 animate-fade-up font-body text-xs uppercase tracking-widest text-foreground-muted">
+            {responseTimePromise}
+          </p>
+        ) : null}
 
         <div className="mt-10 animate-fade-up">
           {hasRealSocialProof ? (

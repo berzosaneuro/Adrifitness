@@ -19,6 +19,8 @@ export default function HomePage() {
           whatsappNumber={undefined}
           // TODO: sustituir por datos reales en cuanto existan (o leerlos de Supabase).
           socialProof={{ transformationsCount: 0 }}
+          // TODO: confirmar con Adrián el compromiso de respuesta real (¿24h? ¿48h?) antes de publicar.
+          responseTimePromise="Proceso de selección · Respuesta en 24-48h"
         />
 
         {/*
