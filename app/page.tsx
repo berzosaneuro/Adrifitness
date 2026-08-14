@@ -9,7 +9,8 @@ import { WhoItsFor } from "@/components/WhoItsFor";
 
 const LEAD_FORM_HREF = "#lead-form";
 
-const ADRIAN_PHOTO_URL: string | undefined = "/images/adrian-portrait.jpg";
+const ADRIAN_HERO_PHOTO_URL = "/images/adrian-hero.jpg";
+const ADRIAN_ABOUT_PHOTO_URL = "/images/adrian-about.jpg";
 
 export default function HomePage() {
   return (
@@ -24,7 +25,7 @@ export default function HomePage() {
           socialProof={{ transformationsCount: 0 }}
           // TODO: confirmar con Adrián el compromiso de respuesta real (¿24h? ¿48h?) antes de publicar.
           responseTimePromise="Proceso de selección · Respuesta en 24-48h"
-          photoUrl={ADRIAN_PHOTO_URL}
+          photoUrl={ADRIAN_HERO_PHOTO_URL}
         />
 
         <About
@@ -33,7 +34,7 @@ export default function HomePage() {
           // Copy centrado en la filosofía del método, no en biografía/credenciales
           // que no podemos verificar todavía — ver comentario en About.tsx.
           bio="Cada plan se construye desde cero para tu cuerpo, tu rutina y tu objetivo — nada de plantillas descargadas de internet. Si me escribes, lo lees y lo respondo yo, no un equipo de soporte genérico."
-          photoUrl={ADRIAN_PHOTO_URL}
+          photoUrl={ADRIAN_ABOUT_PHOTO_URL}
           // TODO: añadir credenciales reales y verificables cuando Adrián las confirme.
           credentials={undefined}
         />
