@@ -59,3 +59,16 @@ export interface SocialProofStats {
   avgRating?: number;
   reviewsCount?: number;
 }
+
+/**
+ * Fila única de `site_settings` en Supabase. Todos los campos son
+ * nullable a propósito: Adrián los rellena desde el Table Editor cuando
+ * tiene la cifra real. Mientras un campo sea null, el componente que lo
+ * consume no se renderiza — nunca se inventa un número de relleno.
+ */
+export interface SiteSettings {
+  availableSpots: number | null;
+  activeClientsCount: number | null;
+  yearsExperience: number | null;
+  sessionsCompleted: number | null;
+}

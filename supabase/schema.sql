@@ -57,3 +57,34 @@ create policy "results_public_select"
 -- Inserts/updates/deletes de `results` se hacen desde el Table Editor de
 -- Supabase con el rol autenticado de Adrián (RLS no aplica a ese rol por
 -- defecto), no desde la app pública — por eso no hay policy de write aquí.
+
+-- ============================================================
+-- site_settings: valores editables por Adrián sin tocar código
+-- (plazas disponibles, cifras reales para "en números", etc.)
+-- Fila única (id fijo) — el frontend hace select().single() y si la fila
+-- no existe todavía, el componente oculta la sección en vez de inventar
+-- un número.
+-- ============================================================
+create table if not exists public.site_settings (
+  id boolean primary key default true check (id),
+  available_spots integer,
+  active_clients_count integer,
+  years_experience integer,
+  sessions_completed integer,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.site_settings enable row level security;
+
+-- Solo lectura pública — la edición la hace Adrián desde el Table Editor.
+create policy "site_settings_public_select"
+  on public.site_settings
+  for select
+  to anon
+  using (true);
+
+-- Fila inicial vacía (todo NULL = todo oculto hasta que Adrián rellene
+-- valores reales desde el Table Editor de Supabase).
+insert into public.site_settings (id)
+values (true)
+on conflict (id) do nothing;

@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -31,7 +34,22 @@ const faqs: FAQItem[] = [
   },
 ];
 
+// Buscador simple sobre las FAQ reales (filtro en cliente, sin llamada a
+// ningún servicio externo). A propósito NO es un chatbot de IA generando
+// respuestas — inventar contestaciones sobre precio/condiciones sería
+// peor que no tener buscador. Esto solo filtra el contenido que Adrián ya
+// ha aprobado arriba.
 export function FAQ() {
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return faqs;
+    return faqs.filter(
+      (faq) => faq.question.toLowerCase().includes(q) || faq.answer.toLowerCase().includes(q)
+    );
+  }, [query]);
+
   return (
     <section className="px-4 py-20 md:py-32" id="faq">
       <div className="mx-auto max-w-3xl">
@@ -41,15 +59,34 @@ export function FAQ() {
           </h2>
         </Reveal>
 
-        <div className="mt-10 flex flex-col gap-4">
-          {faqs.map((faq, index) => (
-            <Reveal key={faq.question} delayMs={index * 60}>
-              <Card className="p-6">
-                <h3 className="font-display text-base text-foreground">{faq.question}</h3>
-                <p className="mt-2 font-body text-sm text-foreground-muted">{faq.answer}</p>
-              </Card>
-            </Reveal>
-          ))}
+        <Reveal delayMs={60}>
+          <div className="relative mt-8">
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Busca tu pregunta, ej. 'precio' o 'equipo'"
+              aria-label="Buscar en preguntas frecuentes"
+              className="w-full rounded-xl border border-border-strong bg-white/5 px-5 py-3.5 font-body text-foreground placeholder:text-foreground-muted/60 focus:border-accent-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            />
+          </div>
+        </Reveal>
+
+        <div className="mt-6 flex flex-col gap-4">
+          {filtered.length > 0 ? (
+            filtered.map((faq, index) => (
+              <Reveal key={faq.question} delayMs={index * 60}>
+                <Card className="p-6">
+                  <h3 className="font-display text-base text-foreground">{faq.question}</h3>
+                  <p className="mt-2 font-body text-sm text-foreground-muted">{faq.answer}</p>
+                </Card>
+              </Reveal>
+            ))
+          ) : (
+            <p className="text-center font-body text-sm text-foreground-muted">
+              No hay resultados para &ldquo;{query}&rdquo; — escríbenos directamente y te respondemos.
+            </p>
+          )}
         </div>
       </div>
     </section>

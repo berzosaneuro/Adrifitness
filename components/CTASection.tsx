@@ -3,8 +3,14 @@
 import { useId, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { GuaranteeBadge } from "@/components/ui/GuaranteeBadge";
 import { leadSchema } from "@/lib/validation";
 import type { ContactMethod } from "@/lib/types";
+
+interface CTASectionProps {
+  /** Términos reales de garantía/compromiso, confirmados por Adrián. undefined = no se muestra badge. */
+  guaranteeTerms?: string;
+}
 
 type FormState = {
   name: string;
@@ -22,7 +28,7 @@ const initialState: FormState = {
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
-export function CTASection() {
+export function CTASection({ guaranteeTerms }: CTASectionProps) {
   const [form, setForm] = useState<FormState>(initialState);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<SubmitStatus>("idle");
@@ -199,6 +205,8 @@ export function CTASection() {
                 {formError}
               </p>
             ) : null}
+
+            <GuaranteeBadge terms={guaranteeTerms} />
 
             <Button type="submit" variant="primary" disabled={status === "submitting"}>
               {status === "submitting" ? "Enviando..." : "Enviar solicitud"}

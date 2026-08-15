@@ -1,6 +1,11 @@
+"use client";
+
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Magnetic } from "@/components/ui/Magnetic";
 import { PhotoFrame } from "@/components/ui/PhotoFrame";
+import { Spotlight } from "@/components/ui/Spotlight";
+import { SpotsBadge } from "@/components/ui/SpotsBadge";
 import type { SocialProofStats } from "@/lib/types";
 
 interface HeroProps {
@@ -26,6 +31,8 @@ interface HeroProps {
   responseTimePromise?: string;
   /** Foto real de Adrián. undefined = PhotoFrame renderiza su placeholder honesto. */
   photoUrl?: string;
+  /** Plazas disponibles reales, leídas de Supabase. null = no se muestra nada (ver SpotsBadge). */
+  spots?: number | null;
 }
 
 export function Hero({
@@ -34,11 +41,23 @@ export function Hero({
   whatsappNumber,
   responseTimePromise,
   photoUrl,
+  spots = null,
 }: HeroProps) {
   const hasRealSocialProof = socialProof.transformationsCount > 0;
 
+  function handleSpotlightMove(event: React.MouseEvent<HTMLElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    event.currentTarget.style.setProperty("--spot-x", `${x}%`);
+    event.currentTarget.style.setProperty("--spot-y", `${y}%`);
+  }
+
   return (
-    <section className="relative overflow-hidden px-4 pb-20 pt-32 sm:pt-40 md:pb-28">
+    <section
+      onMouseMove={handleSpotlightMove}
+      className="relative overflow-hidden px-4 pb-20 pt-32 sm:pt-40 md:pb-28"
+    >
       {/* Fondo en capas: cuadrícula técnica fina + dos glows de color — sin
           imágenes externas, todo CSS/gradientes, coste de perf despreciable. */}
       <div
@@ -53,6 +72,7 @@ export function Hero({
         aria-hidden
         className="pointer-events-none absolute bottom-0 right-1/2 -z-10 h-72 w-72 translate-x-1/2 translate-y-1/2 rounded-full bg-accent-primary/10 blur-[100px]"
       />
+      <Spotlight />
 
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
@@ -76,18 +96,22 @@ export function Hero({
           </p>
 
           <div className="mt-8 flex animate-fade-up flex-col gap-3 sm:flex-row">
-            <Button href={leadFormHref} variant="primary">
-              Quiero mi plan personalizado
-            </Button>
-            {whatsappNumber ? (
-              <Button
-                href={`https://wa.me/${whatsappNumber}`}
-                variant="outline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Hablar por WhatsApp
+            <Magnetic>
+              <Button href={leadFormHref} variant="primary">
+                Quiero mi plan personalizado
               </Button>
+            </Magnetic>
+            {whatsappNumber ? (
+              <Magnetic>
+                <Button
+                  href={`https://wa.me/${whatsappNumber}`}
+                  variant="outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Hablar por WhatsApp
+                </Button>
+              </Magnetic>
             ) : null}
           </div>
 
@@ -95,6 +119,12 @@ export function Hero({
             <p className="mt-4 animate-fade-up font-body text-xs uppercase tracking-widest text-foreground-muted">
               {responseTimePromise}
             </p>
+          ) : null}
+
+          {spots !== null ? (
+            <div className="mt-4 animate-fade-up">
+              <SpotsBadge spots={spots} />
+            </div>
           ) : null}
 
           <div className="mt-10 animate-fade-up">

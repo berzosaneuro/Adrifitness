@@ -48,7 +48,12 @@
   #metodo,
   #para-ti,
   #faq,
-  #lead-form {
+  #lead-form,
+  #incluye,
+  #calculadora,
+  #timeline,
+  #quiz,
+  #reserva {
     scroll-margin-top: 5rem;
   }
 }

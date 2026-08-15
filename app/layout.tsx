@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Orbitron } from "next/font/google";
+import { CursorHalo } from "@/components/ui/CursorHalo";
 import "./globals.css";
 
 // Orbitron: fuente de titulares — geométrica, futurista, encaja con el
@@ -61,7 +62,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={`${orbitron.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <CursorHalo />
+        {children}
+      </body>
     </html>
   );
 }
