@@ -39,11 +39,23 @@ const config: Config = {
       },
       animation: {
         "fade-up": "fade-up 0.6s ease-out forwards",
+        "pulse-glow": "pulse-glow 2.4s ease-in-out infinite",
       },
       keyframes: {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        // Respiración neón sutil para el highlight del H1 — cyberpunk sign,
+        // no una animación de layout (solo text-shadow), así que no hay
+        // coste de reflow. Va detrás de motion-safe: en el JSX.
+        "pulse-glow": {
+          "0%, 100%": {
+            textShadow: "0 0 28px rgba(57,255,20,0.45), 0 0 56px rgba(57,255,20,0.18)",
+          },
+          "50%": {
+            textShadow: "0 0 40px rgba(57,255,20,0.7), 0 0 76px rgba(57,255,20,0.35)",
+          },
         },
       },
     },

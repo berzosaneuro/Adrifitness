@@ -81,13 +81,23 @@ export function Hero({
           </Badge>
 
           {/* H1 declara nicho explícito: a quién ayuda + qué resultado. */}
-          <h1 className="animate-fade-up font-display text-4xl leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            Transforma tu cuerpo en{" "}
-            <span className="text-accent-primary drop-shadow-[0_0_24px_rgba(57,255,20,0.35)]">
-              12 semanas
-            </span>{" "}
-            con un método 1:1, sin dietas ni rutinas genéricas
+          <h1 className="animate-fade-up font-display text-5xl leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+            Transforma tu cuerpo{" "}
+            <span className="relative inline-block text-accent-primary drop-shadow-[0_0_28px_rgba(57,255,20,0.45)] motion-safe:animate-pulse-glow">
+              con mi método
+              <span className="text-accent-secondary drop-shadow-[0_0_20px_rgba(139,92,246,0.55)]">
+                !
+              </span>
+              <span
+                aria-hidden
+                className="absolute -bottom-1.5 left-0 h-[3px] w-full rounded-full bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-primary opacity-70"
+              />
+            </span>
           </h1>
+
+          <p className="mt-4 animate-fade-up font-display text-xs uppercase tracking-[0.2em] text-accent-secondary">
+            12 semanas · 1:1 · sin dietas ni rutinas genéricas
+          </p>
 
           <p className="mt-6 max-w-xl animate-fade-up text-balance font-body text-lg text-foreground-muted">
             Adrián Method es coaching online personalizado para hombres y
